@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { BarChart3, BookOpen, Compass, HomeIcon, Layers3, Mail } from "lucide-react";
+import { BarChart3, BookOpen, HomeIcon, Layers3 } from "lucide-react";
 import type { ReactNode } from "react";
 
 type WorkExperience = {
@@ -95,9 +95,7 @@ export const DATA = {
     { href: "/#hero", icon: HomeIcon, label: "Home" },
     { href: "/#projects", icon: BarChart3, label: "Projects" },
     { href: "/#skills", icon: Layers3, label: "Skills" },
-    { href: "/#work", icon: Compass, label: "Internship" },
     { href: "/resources", icon: BookOpen, label: "Resources" },
-    { href: "/#contact", icon: Mail, label: "Contact" },
   ],
   contact: {
     email: "prashantlodhi1920@gmail.com",

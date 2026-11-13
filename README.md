@@ -15,16 +15,6 @@ My personal portfolio showcasing data analytics projects, practical skills, educ
 - Light and dark themes, animated content, and a floating navigation dock.
 - Navbar shortcuts for Home, Projects, Skills, and Resources, alongside social links and the theme toggle.
 
-## Featured projects
-
-| Project | Focus |
-| --- | --- |
-| [Business Insight 360](https://github.com/PrashantDes/business-insight-360) | Power BI reporting across finance, sales, marketing, supply chain, and executive metrics |
-| [WaveCon 5G Impact Analysis](https://github.com/PrashantDes/WaveCon_5G_Impact_Analysis) | Analysis of revenue, customer retention, and market share around a 5G launch |
-| [Expense Tracking System](https://github.com/PrashantDes/expense-tracking-system) | Expense management with Streamlit, FastAPI, and MySQL |
-| [Insurance Performance Analysis](https://github.com/PrashantDes/Insurance-Performance-Analysis) | Power BI analysis of policies, premiums, settlements, and customer segments |
-| [Clinical Trial Termination Analysis](https://github.com/PrashantDes/clinical_trial_termination_analysis) | Statistical analysis and dashboards exploring early trial termination |
-| [Hotel Hospitality Analysis](https://github.com/PrashantDes/hotel-hospitality-analysis) | Python analysis of bookings, occupancy, revenue, and guest ratings |
 
 ## Tech stack
 

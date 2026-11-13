@@ -12,7 +12,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Resources",
   description:
-    "Tools, references, and learning resources I use and recommend to other developers.",
+    "Tools, references, and learning resources I use for data analytics.",
 };
 
 const BLUR_FADE_DELAY = 0.04;
@@ -34,8 +34,7 @@ export default function ResourcesPage() {
       <BlurFade delay={BLUR_FADE_DELAY}>
         <h1 className="font-bold text-5xl mb-2 tracking-tighter">Resources</h1>
         <p className="text-muted-foreground mb-8">
-          Tools, references, and learning material I use and recommend to other
-          developers. Everything here is free.
+          Tools, references, and learning material I use for data analytics.
         </p>
       </BlurFade>
 

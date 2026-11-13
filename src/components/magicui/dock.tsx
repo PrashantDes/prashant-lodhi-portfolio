@@ -32,9 +32,14 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
   ) => {
     const mousex = useMotionValue(Infinity);
 
+    const resetPointer = (event: React.PointerEvent<HTMLDivElement>) => {
+      mousex.set(Infinity);
+      event.currentTarget.style.removeProperty("--dock-light-x");
+    };
+
     const renderChildren = () => {
       return React.Children.map(children, (child: any) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement<DockIconProps>(child) && child.props["data-dock-icon"]) {
           return React.cloneElement(child, {
             mousex,
             magnification,
@@ -48,8 +53,19 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
     return (
       <motion.div
         ref={ref}
-        onMouseMove={(e) => mousex.set(e.pageX)}
-        onMouseLeave={() => mousex.set(Infinity)}
+        onPointerMove={(event) => {
+          if (event.pointerType === "mouse") {
+            mousex.set(event.clientX);
+            const bounds = event.currentTarget.getBoundingClientRect();
+            const lightX = Math.max(
+              0,
+              Math.min(100, ((event.clientX - bounds.left) / Math.max(bounds.width, 1)) * 100)
+            );
+            event.currentTarget.style.setProperty("--dock-light-x", `${lightX}%`);
+          }
+        }}
+        onPointerLeave={resetPointer}
+        onPointerCancel={resetPointer}
         {...props}
         className={cn(dockVariants({ className }))}
       >
@@ -62,6 +78,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 Dock.displayName = "Dock";
 
 export interface DockIconProps {
+  "data-dock-icon"?: boolean;
   size?: number;
   magnification?: number;
   distance?: number;
@@ -81,8 +98,9 @@ const DockIcon = ({
   ...props
 }: DockIconProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const fallbackMousex = useMotionValue(Infinity);
 
-  const distanceCalc = useTransform(mousex, (val: number) => {
+  const distanceCalc = useTransform(mousex ?? fallbackMousex, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
@@ -104,7 +122,7 @@ const DockIcon = ({
       ref={ref}
       style={{ width }}
       className={cn(
-        "flex aspect-square cursor-pointer items-center justify-center rounded-full",
+        "dock-icon flex h-full shrink-0 cursor-pointer items-center justify-center rounded-full",
         className
       )}
       {...props}

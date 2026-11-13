@@ -5,7 +5,6 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { getBlogPosts } from "@/data/blog";
 import { PINNED, resourceLogoUrl } from "@/data/resources";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
@@ -13,15 +12,7 @@ import Markdown from "react-markdown";
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default async function Page() {
-  const posts = (await getBlogPosts())
-    .sort(
-      (a, b) =>
-        new Date(b.metadata.publishedAt).getTime() -
-        new Date(a.metadata.publishedAt).getTime()
-    )
-    .slice(0, 3);
-
+export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       <section id="hero">
@@ -34,7 +25,7 @@ export default async function Page() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                     <span className="relative inline-flex size-2 rounded-full bg-green-500" />
                   </span>
-                  Open to new opportunities
+                  {DATA.availability}
                 </div>
               </BlurFade>
               <BlurFadeText
@@ -51,7 +42,7 @@ export default async function Page() {
               <BlurFade delay={BLUR_FADE_DELAY * 2}>
                 <div className="flex items-center gap-2 pt-3">
                   <Link
-                    href="/resume.pdf"
+                    href={DATA.resumeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-lg bg-foreground text-background px-4 py-2 text-sm font-semibold hover:opacity-80 transition-opacity"
@@ -106,15 +97,14 @@ export default async function Page() {
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
           <p className="mt-3 font-sans text-sm text-muted-foreground">
-            300+ weekly npm downloads · 212+ production REST APIs · 13+
-            zero-downtime deploys a week
+            {DATA.highlights}
           </p>
         </BlurFade>
       </section>
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-xl font-bold">{DATA.workHeading}</h2>
           </BlurFade>
           {DATA.work.map((work, id) => (
             <BlurFade
@@ -129,7 +119,7 @@ export default async function Page() {
                 subtitle={work.title}
                 href={work.href}
                 badges={work.badges}
-                period={`${work.start} - ${work.end ?? "Present"}`}
+                period={work.period || `${work.start} - ${work.end ?? "Present"}`}
                 description={work.description}
               />
             </BlurFade>
@@ -193,15 +183,14 @@ export default async function Page() {
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I&apos;ve worked on a variety of projects, from simple
-                  websites to complex web applications. Here are a few of my
-                  favorites.
+                  Real-world analytics pipelines, BI dashboards, and
+                  reproducible Python analysis.
                 </p>
               </div>
             </div>
           </BlurFade>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-            {DATA.projects.slice(0, 4).map((project, id) => (
+            {DATA.projects.map((project, id) => (
               <BlurFade
                 key={project.title}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
@@ -223,7 +212,7 @@ export default async function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 14}>
             <div className="flex justify-center">
               <Link
-                href="https://github.com/iamsurajchahar"
+                href={DATA.contact.social.GitHub.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-foreground text-background px-4 py-2 text-sm font-semibold hover:opacity-80 transition-opacity"
@@ -232,40 +221,6 @@ export default async function Page() {
                 More Projects
               </Link>
             </div>
-          </BlurFade>
-        </div>
-      </section>
-      <section id="writing">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 15}>
-            <h2 className="text-xl font-bold">Recent Writing</h2>
-          </BlurFade>
-          {posts.map((post, id) => (
-            <BlurFade
-              key={post.slug}
-              delay={BLUR_FADE_DELAY * 15.5 + id * 0.05}
-            >
-              <Link
-                className="flex flex-col space-y-1"
-                href={`/blog/${post.slug}`}
-              >
-                <p className="tracking-tight">{post.metadata.title}</p>
-                <p className="text-xs text-muted-foreground">
-                  {new Date(post.metadata.publishedAt).toLocaleDateString(
-                    "en-US",
-                    { month: "long", day: "numeric", year: "numeric" }
-                  )}
-                </p>
-              </Link>
-            </BlurFade>
-          ))}
-          <BlurFade delay={BLUR_FADE_DELAY * 15.5 + posts.length * 0.05}>
-            <Link
-              href="/blog"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              View all posts →
-            </Link>
           </BlurFade>
         </div>
       </section>
@@ -353,12 +308,6 @@ export default async function Page() {
                 className="hover:text-foreground transition-colors"
               >
                 LinkedIn
-              </Link>
-              <Link
-                href="/blog"
-                className="hover:text-foreground transition-colors"
-              >
-                Blog
               </Link>
               <Link
                 href="/resources"

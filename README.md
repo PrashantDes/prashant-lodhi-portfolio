@@ -1,11 +1,11 @@
-# Suraj Singh Chahar — Portfolio
+# Prashant Lodhi — Portfolio
 
-My personal portfolio website. Live at [iamsurajchahar.vercel.app](https://iamsurajchahar.vercel.app/).
+My personal portfolio website. Live at [prashant-lodhi.vercel.app](https://prashant-lodhi.vercel.app/).
 
 ## What's inside
 
-- **Home** — about me, work experience, education, skills, and featured projects
-- **Blog** — technical articles written in MDX (npm publishing, CI/CD, JWT auth, and more)
+- **Home** — about me, virtual internship, education, skills, and featured projects
+- **Blog** — MDX support for future data analytics articles
 - **Resources** — tools, references, and learning material I use and recommend
 - Dark mode, smooth scroll animations, and a fully responsive layout
 
@@ -25,10 +25,10 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-To add a blog post, drop a new `.mdx` file in `content/` with `title`, `publishedAt`, and `summary` frontmatter. Projects, work experience, and skills are all edited in one place: `src/data/resume.tsx`.
+To add a blog post, drop a new `.mdx` file in `content/` with `title`, `publishedAt`, and `summary` frontmatter. Projects, internship experience, education, skills, and contact information are all edited in one place: `src/data/resume.tsx`.
 
 ## Contact
 
-- GitHub: [@iamsurajchahar](https://github.com/iamsurajchahar)
-- LinkedIn: [imsurajchahar](https://www.linkedin.com/in/imsurajchahar/)
-- Email: contact.chahar@gmail.com
+- GitHub: [PrashantDes](https://github.com/PrashantDes)
+- LinkedIn: [Prashant Lodhi](https://www.linkedin.com/in/itsprashantlodhi)
+- Email: prashantlodhi1920@gmail.com

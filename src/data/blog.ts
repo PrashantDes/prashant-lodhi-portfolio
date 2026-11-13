@@ -1,5 +1,6 @@
 import fs from "fs";
 import matter from "gray-matter";
+import { notFound } from "next/navigation";
 import path from "path";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
@@ -40,6 +41,9 @@ export async function markdownToHTML(markdown: string) {
 
 export async function getPost(slug: string) {
   const filePath = path.join("content", `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) {
+    notFound();
+  }
   let source = fs.readFileSync(filePath, "utf-8");
   const { content: rawContent, data: metadata } = matter(source);
   const content = await markdownToHTML(rawContent);
